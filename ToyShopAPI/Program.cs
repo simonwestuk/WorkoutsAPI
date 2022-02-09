@@ -20,7 +20,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseSqlite("Data Source=./Data/AppDb.db"));
 
 
-builder.Services.AddIdentity<UserModel, IdentityRole>(options =>
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
     options.Password.RequireUppercase = true;
     options.Password.RequireDigit = true;
