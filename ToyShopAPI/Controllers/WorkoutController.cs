@@ -26,21 +26,21 @@ namespace WorkoutAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WorkoutModel>>> GetActivities()
         {
-            return await _context.Workouts.ToListAsync();
+            return await _context.Workouts.Include("Activity").ToListAsync();
         }
 
         // GET: api/Produc/5
         [HttpGet("{id}")]
         public async Task<ActionResult<WorkoutModel>> GetActivityModel(int id)
         {
-            var WorkoutModel = await _context.Workouts.FindAsync(id);
+            var WorkoutModel = await _context.Workouts.Include("Activity").Where(x => x.ID == id).ToListAsync();
 
             if (WorkoutModel == null)
             {
                 return NotFound();
             }
 
-            return WorkoutModel;
+            return WorkoutModel.FirstOrDefault();
         }
 
         // PUT: api/Produc/5

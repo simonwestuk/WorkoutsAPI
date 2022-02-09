@@ -72,13 +72,18 @@ namespace WorkoutAPI.Migrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 150, nullable: false),
-                    Description = table.Column<string>(type: "TEXT", maxLength: 150, nullable: false),
-                    Type = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
+                    ActivityID = table.Column<int>(type: "INTEGER", nullable: false),
+                    Duration = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Workouts", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Workouts_Activities_ActivityID",
+                        column: x => x.ActivityID,
+                        principalTable: "Activities",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -223,13 +228,15 @@ namespace WorkoutAPI.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Workouts_ActivityID",
+                table: "Workouts",
+                column: "ActivityID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Activities");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -253,6 +260,9 @@ namespace WorkoutAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Activities");
         }
     }
 }

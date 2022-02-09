@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorkoutAPI.Models
 {
@@ -9,16 +10,13 @@ namespace WorkoutAPI.Models
         [Required]
         public int ID { get; set; }
 
-        [MaxLength(150)]
-        [Required]
-        public string? Name { get; set; }
+        public int ActivityID { get; set; }
 
-        [MaxLength(150)]
-        [Required]
-        public string? Description { get; set; }
+        [ForeignKey("ActivityID")]
+        public ActivityModel? Activity { get; set; }
 
-        [MaxLength(50)]
         [Required]
-        public string? Type { get; set; }
+        public double? Duration { get; set; }
+
     }
 }

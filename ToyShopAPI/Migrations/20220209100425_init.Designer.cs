@@ -11,7 +11,7 @@ using WorkoutAPI.Data;
 namespace WorkoutAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220209093542_init")]
+    [Migration("20220209100425_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -252,22 +252,16 @@ namespace WorkoutAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                    b.Property<int>("ActivityID")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
+                    b.Property<double?>("Duration")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("REAL");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("ActivityID");
 
                     b.ToTable("Workouts");
                 });
@@ -321,6 +315,17 @@ namespace WorkoutAPI.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WorkoutAPI.Models.WorkoutModel", b =>
+                {
+                    b.HasOne("WorkoutAPI.Models.ActivityModel", "Activity")
+                        .WithMany()
+                        .HasForeignKey("ActivityID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Activity");
                 });
 #pragma warning restore 612, 618
         }
