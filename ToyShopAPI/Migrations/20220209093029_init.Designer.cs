@@ -11,7 +11,7 @@ using WorkoutAPI.Data;
 namespace WorkoutAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220204103007_init")]
+    [Migration("20220209093029_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
