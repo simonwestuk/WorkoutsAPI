@@ -18,12 +18,12 @@ namespace WorkoutAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly SignInManager<UserModel> signInManager;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<UserModel> userManager;
 
         private readonly JwtBearerTokenSettings jwtBearerTokenSettings;
        
 
-        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<IdentityUser> userManager)
+        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<UserModel> userManager)
         {
             this.jwtBearerTokenSettings = jwtTokenOptions.Value;
             this.userManager = userManager;
